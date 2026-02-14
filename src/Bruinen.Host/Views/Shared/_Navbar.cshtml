@@ -1,0 +1,52 @@
+<nav class="navbar sticky-top bg-body-tertiary border-bottom border-secondary-subtle shadow-sm">
+    <div class="container py-2">
+        <a asp-controller="Home" asp-action="Index"
+           class="navbar-brand mb-0 h1 d-flex align-items-center gap-2 text-body-secondary text-decoration-none">
+            Bruinen
+        </a>
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <div class="dropdown">
+                <button
+                    class="btn p-0 border-0 bg-transparent dropdown-toggle d-flex align-items-center gap-2"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                >
+                    <span
+                        class="rounded-circle bg-primary-subtle text-primary-emphasis d-inline-flex align-items-center justify-content-center"
+                        style="width: 36px; height: 36px;">
+                        <i class="fa-regular fa-user"></i>
+                    </span>
+                    <span class="d-none d-md-inline">@User.Identity.Name</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" style="min-width: 240px;">
+                    <li class="px-3 py-2">
+                        <div class="text-muted small">Signed in as</div>
+                        <div class="fw-semibold">@User.Identity.Name</div>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <form asp-controller="Acc" asp-action="Logout" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="dropdown-item d-flex align-items-center gap-2 text-danger">
+                                <i class="fa-solid fa-right-from-bracket"></i>Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        }
+        else
+        {
+            <a asp-controller="Acc" asp-action="Login"
+               class="btn p-0 border-0 bg-transparent d-flex align-items-center gap-2 text-decoration-none">
+                Sign in
+            </a>
+        }
+    </div>
+</nav>
+
