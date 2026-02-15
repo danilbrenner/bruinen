@@ -67,7 +67,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Isopoh.Cryptography.Argon2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -80,6 +79,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Bruinen.Application\Bruinen.Application.csproj" />
       <ProjectReference Include="..\Bruinen.Infra\Bruinen.Infra.csproj" />
     </ItemGroup>
 

@@ -8,10 +8,10 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.ToTable("users").HasKey(u => u.Email);
-        builder.Property(u => u.Email).HasMaxLength(255).IsRequired();
+        builder.ToTable("users").HasKey(u => u.Login);
+        builder.Property(u => u.Login).HasMaxLength(255).IsRequired();
         builder.Property(u => u.PasswordHash).HasMaxLength(255).IsRequired();
         
-        builder.HasIndex(u => u.Email);
+        builder.HasIndex(u => u.Login);
     }
 }

@@ -1,3 +1,4 @@
+using Bruinen.Application;
 using Bruinen.Data;
 using Serilog;
 
@@ -20,8 +21,11 @@ try
     // Add services to the container.
     builder.Services.AddControllersWithViews();
 
-    builder.Services.AddData(builder.Configuration);
-    
+    builder
+        .Services
+        .AddApplicationServices(builder.Configuration)
+        .AddData(builder.Configuration);
+
     // Add authentication
     builder.Services.AddAuthentication("CookieAuth")
         .AddCookie("CookieAuth", options =>

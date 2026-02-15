@@ -15,4 +15,8 @@
       <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Bruinen.Application\Bruinen.Application.csproj" />
+    </ItemGroup>
+
 </Project>
