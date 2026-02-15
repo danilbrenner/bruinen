@@ -1,3 +1,5 @@
+using Bruinen.Application.Abstractions;
+using Bruinen.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +12,7 @@ public static class Setup
     public static IServiceCollection AddData(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
-        
+
         services.AddDbContextFactory<BruinenContext>(options =>
         {
             options
@@ -18,7 +20,7 @@ public static class Setup
                 .UseSnakeCaseNamingConvention();
         });
 
-        return services;
+        return services.AddScoped<IUserRepository, UserRepository>();
     }
 
     public static IHost UseData(this IHost app)
@@ -27,7 +29,7 @@ public static class Setup
         var environment = scope.ServiceProvider.GetRequiredService<IHostEnvironment>();
 
         if (!environment.IsDevelopment()) return app;
-        
+
         var dbContextFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<BruinenContext>>();
         using var context = dbContextFactory.CreateDbContext();
         context.Database.Migrate();
