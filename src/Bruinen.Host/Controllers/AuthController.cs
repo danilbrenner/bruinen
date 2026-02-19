@@ -7,7 +7,7 @@ using Bruinen.Host.Models;
 
 namespace Bruinen.Host.Controllers;
 
-public class AccController(LoginService loginService) : Controller
+public class AuthController(LoginService loginService) : Controller
 {
     [HttpGet]
     public IActionResult Login(string? returnUrl = null)
