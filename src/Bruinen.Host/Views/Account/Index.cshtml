@@ -1,0 +1,27 @@
+@model AccountViewModel
+
+@{
+    ViewBag.Title = "Account";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h2 class="mb-4">Account</h2>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="flex-grow-1">
+                            <small class="text-muted">Password last changed:</small>
+                            <div class="fw-semibold">@Model.PasswordLastChangedAt.ToString("MMMM dd, yyyy")</div>
+                        </div>
+                        <a asp-controller="Account" asp-action="ChangePassword" class="btn btn-primary">
+                            <i class="fas fa-key me-2"></i>Change Password
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

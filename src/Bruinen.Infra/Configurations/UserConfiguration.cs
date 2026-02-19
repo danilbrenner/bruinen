@@ -11,6 +11,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.ToTable("users").HasKey(u => u.Login);
         builder.Property(u => u.Login).HasMaxLength(255).IsRequired();
         builder.Property(u => u.PasswordHash).HasMaxLength(255).IsRequired();
+        builder.Property(u => u.PasswordChangedAt).IsRequired().HasDefaultValueSql("CURRENT_TIMESTAMP");
         
         builder.HasIndex(u => u.Login);
     }

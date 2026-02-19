@@ -1,3 +1,3 @@
 ﻿namespace Bruinen.Domain;
 
-public record User(string Login, string PasswordHash);
+public record User(string Login, string PasswordHash, DateTime PasswordChangedAt);

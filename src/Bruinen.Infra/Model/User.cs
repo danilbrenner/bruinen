@@ -4,4 +4,5 @@ public class User
 {
     public required string Login { get; init; }
     public required string PasswordHash { get; init; }
+    public DateTime PasswordChangedAt { get; set; }
 }
