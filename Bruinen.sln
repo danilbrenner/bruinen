@@ -6,6 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFi
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		compose.yml = compose.yml
+		Makefile = Makefile
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bruinen.Host", "src\Bruinen.Host\Bruinen.Host.csproj", "{8102E484-F02A-473D-9A2C-EDD42371608F}"
