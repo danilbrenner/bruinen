@@ -16,9 +16,9 @@
     <Copyright>Copyright © 2026</Copyright>
   </PropertyGroup>
 
-  <!-- Enable Central Package Management -->
-  <PropertyGroup>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  <!-- Test projects should not be packable -->
+  <PropertyGroup Condition="$(MSBuildProjectName.Contains('Test'))">
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
 </Project>
