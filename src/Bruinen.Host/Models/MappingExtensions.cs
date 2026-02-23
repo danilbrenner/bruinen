@@ -7,6 +7,6 @@ public static class MappingExtensions
     public  static AccountViewModel ToViewModel(this User user)
         => new ()
         {
-            PasswordLastChangedAt = DateOnly.FromDateTime(user.PasswordChangedAt)
+            PasswordLastChangedAt = DateOnly.FromDateTime(user.PasswordChangedAt.Date)
         };
 }
