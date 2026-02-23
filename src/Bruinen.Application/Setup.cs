@@ -7,5 +7,7 @@ namespace Bruinen.Application;
 public static class Setup
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
-        => services.AddScoped<LoginService>();
+        => services
+            .AddScoped<LoginService>()
+            .AddScoped<AccountService>();
 }

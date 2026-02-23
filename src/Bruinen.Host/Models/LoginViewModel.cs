@@ -6,14 +6,14 @@ public class LoginViewModel
 {
     [Required]
     [Display(Name = "Username")]
-    public string Username { get; set; } = string.Empty;
+    public string Username { get; init; } = string.Empty;
 
     [Required]
     [DataType(DataType.Password)]
     [Display(Name = "Password")]
-    public string Password { get; set; } = string.Empty;
+    public string Password { get; init; } = string.Empty;
 
     [Display(Name = "Remember me")]
-    public bool RememberMe { get; set; }
+    public bool RememberMe { get; init; }
 }
 

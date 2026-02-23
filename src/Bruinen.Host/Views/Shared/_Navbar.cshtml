@@ -30,7 +30,15 @@
                         <hr class="dropdown-divider">
                     </li>
                     <li>
-                        <form asp-controller="Acc" asp-action="Logout" method="post" class="d-inline">
+                        <a asp-controller="Account" asp-action="Index" class="dropdown-item d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-user-circle"></i>Account
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
+                        <form asp-controller="Auth" asp-action="Logout" method="post" class="d-inline">
                             @Html.AntiForgeryToken()
                             <button type="submit" class="dropdown-item d-flex align-items-center gap-2 text-danger">
                                 <i class="fa-solid fa-right-from-bracket"></i>Logout
@@ -42,7 +50,7 @@
         }
         else
         {
-            <a asp-controller="Acc" asp-action="Login"
+            <a asp-controller="Auth" asp-action="Login"
                class="btn p-0 border-0 bg-transparent d-flex align-items-center gap-2 text-decoration-none">
                 Sign in
             </a>
