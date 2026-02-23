@@ -20,7 +20,7 @@ public class AuthController(LoginService loginService) : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
     {
-        ViewData["rв"] = returnUrl;
+        ViewData["rd"] = returnUrl;
 
         if (!ModelState.IsValid)
         {
@@ -36,7 +36,6 @@ public class AuthController(LoginService loginService) : Controller
         var claims = new List<Claim>
         {
             new(ClaimTypes.Name, model.Username)
-            // new(ClaimTypes.Email, $"{model.Username}@example.com")
         };
 
         var claimsIdentity = new ClaimsIdentity(claims, "CookieAuth");

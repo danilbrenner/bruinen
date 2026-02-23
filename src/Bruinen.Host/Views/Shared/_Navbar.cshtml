@@ -30,6 +30,14 @@
                         <hr class="dropdown-divider">
                     </li>
                     <li>
+                        <a asp-controller="Account" asp-action="Index" class="dropdown-item d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-user-circle"></i>Account
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li>
                         <form asp-controller="Auth" asp-action="Logout" method="post" class="d-inline">
                             @Html.AntiForgeryToken()
                             <button type="submit" class="dropdown-item d-flex align-items-center gap-2 text-danger">
