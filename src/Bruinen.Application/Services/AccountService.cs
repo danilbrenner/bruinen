@@ -12,7 +12,7 @@ public class AccountService(IUserRepository userRepository)
             throw new InvalidOperationException("User not found.");
         if (!Argon2.Verify(user.PasswordHash, currentPassword))
             return false;
-        user.ChangePassword(Argon2.Hash(newPassword));
+        user.ChangePassword(Argon2.Hash(newPassword), DateTimeOffset.UtcNow);
         return true;
     }
 }
