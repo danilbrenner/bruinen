@@ -30,6 +30,10 @@ try
     builder.Services.AddAuthentication("CookieAuth")
         .AddCookie("CookieAuth", options =>
         {
+            options.Cookie.HttpOnly = true;
+            options.Cookie.Domain = 
+                builder.Configuration["Authentication:CookieDomain"] 
+                ?? throw new InvalidOperationException("Authentication:CookieDomain configuration is missing");
             options.LoginPath = "/Account/Login";
             options.LogoutPath = "/Account/Logout";
             options.AccessDeniedPath = "/Account/AccessDenied";
