@@ -1,7 +1,30 @@
 services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: bruinen_caddy
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./dev/Caddyfile:/etc/caddy/Caddyfile
+    networks:
+      - bruinen_network
+
+  whoami:
+    image: traefik/whoami
+    container_name: bruinen_whoami
+    expose:
+      - "80"
+    networks:
+      - bruinen_network
+
   data:
     image: postgres:18.1-alpine
     container_name: bruinen_data
+    restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -10,6 +33,14 @@ services:
       - "5437:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - bruinen_network
+
+networks:
+  bruinen_network:
+    driver: bridge
 
 volumes:
   postgres_data:
+  caddy_data:
+  caddy_config:

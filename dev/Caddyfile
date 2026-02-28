@@ -1,0 +1,25 @@
+{
+    auto_https off
+    log {
+            output stdout
+            format console
+        }
+#    local_certs
+}
+
+app.home.bruinen:80 {
+    log {
+            output stdout
+            format console
+        }
+    forward_auth host.docker.internal:5001 {
+                                               uri /auth/verify?rd=http://auth.home.bruinen/Auth/Login
+                                               copy_headers X-Forwarded-Host X-Forwarded-Uri X-Forwarded-Proto
+                                           }
+    reverse_proxy whoami:80
+}
+
+auth.home.bruinen:80 {
+    reverse_proxy host.docker.internal:5001
+}
+
