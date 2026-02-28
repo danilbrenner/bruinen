@@ -7,20 +7,20 @@ using Bruinen.Host.Models;
 
 namespace Bruinen.Host.Controllers;
 
-public class AuthController(LoginService loginService) : Controller
+public class AuthController(LoginService loginService, IConfiguration configuration) : Controller
 {
     [HttpGet]
-    public IActionResult Login(string? returnUrl = null)
+    public IActionResult Login(string? rd = null)
     {
-        ViewData["ReturnUrl"] = returnUrl;
+        ViewData["rd"] = rd;
         return View(new LoginViewModel());
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
+    public async Task<IActionResult> Login(LoginViewModel model, string? rd = null)
     {
-        ViewData["rd"] = returnUrl;
+        ViewData["rd"] = rd;
 
         if (!ModelState.IsValid)
         {
@@ -49,12 +49,10 @@ public class AuthController(LoginService loginService) : Controller
 
         await HttpContext.SignInAsync("CookieAuth", claimsPrincipal, authProperties);
 
-        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
-        {
-            return Redirect(returnUrl);
-        }
-
-        return RedirectToAction("Index", "Home");
+        return
+            !string.IsNullOrEmpty(rd)
+                ? Redirect(rd)
+                : RedirectToAction("Index", "Home");
     }
 
     [HttpPost]
@@ -64,6 +62,33 @@ public class AuthController(LoginService loginService) : Controller
     {
         await HttpContext.SignOutAsync("CookieAuth");
         return RedirectToAction("Index", "Home");
+    }
+
+    [HttpGet]
+    public IActionResult Verify()
+    {
+        if (!HttpContext.User.Identity?.IsAuthenticated ?? false)
+        {
+            var returnUrl = GetOriginUrl(HttpContext.Request);
+            var baseUrl = 
+                configuration["Authentication:LoginUrl"] 
+                ?? throw new InvalidOperationException("Authentication:LoginUrl configuration is missing");
+            return Redirect($"{baseUrl}?rd={Uri.EscapeDataString(returnUrl)}");
+        }
+
+        HttpContext.Response.Headers.Append("X-Auth-User", HttpContext.User.Identity!.Name);
+        // TODO: HttpContext.Response.Headers.Append("X-Auth-Roles", "");
+
+        return Ok();
+    }
+
+    private static string GetOriginUrl(HttpRequest request)
+    {
+        var protocol = request.Headers["X-Forwarded-Proto"].FirstOrDefault() ?? request.Protocol;
+        var host = request.Headers["X-Forwarded-Host"].FirstOrDefault() ?? request.Host.Value;
+        var path = request.Headers["X-Forwarded-Uri"].FirstOrDefault() ?? request.Path.Value;
+        var returnUrl = $"{protocol}://{host}{path}";
+        return returnUrl;
     }
 
     [HttpGet]
