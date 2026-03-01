@@ -1,5 +1,6 @@
 using Bruinen.Application;
 using Bruinen.Data;
+using Bruinen.Host.Middleware;
 using Serilog;
 
 // Configure Serilog early from configuration
@@ -44,10 +45,10 @@ try
 
     var app = builder.Build();
 
-    // Add Serilog request logging
-    app.UseSerilogRequestLogging();
-
-    app.UseData();
+    app
+        .UseRequestId()
+        .UseData()
+        .UseSerilogRequestLogging();
 
     // Configure the HTTP request pipeline.
     if (!app.Environment.IsDevelopment())

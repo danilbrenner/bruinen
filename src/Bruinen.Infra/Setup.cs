@@ -1,5 +1,6 @@
 using Bruinen.Application.Abstractions;
 using Bruinen.Data.Repository;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,9 +24,9 @@ public static class Setup
         return services.AddScoped<IUserRepository, UserRepository>();
     }
 
-    public static IHost UseData(this IHost app)
+    public static IApplicationBuilder UseData(this IApplicationBuilder app)
     {
-        using var scope = app.Services.CreateScope();
+        using var scope = app.ApplicationServices.CreateScope();
         var environment = scope.ServiceProvider.GetRequiredService<IHostEnvironment>();
 
         if (!environment.IsDevelopment()) return app;

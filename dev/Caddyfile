@@ -14,6 +14,7 @@ app.home.bruinen:80 {
         }
     forward_auth host.docker.internal:5001 {
                                                uri /auth/verify?rd=http://auth.home.bruinen/Auth/Login
+                                               header_up X-Request-Id {http.request.uuid}
                                                copy_headers X-Forwarded-Host X-Forwarded-Uri X-Forwarded-Proto
                                            }
     reverse_proxy whoami:80
