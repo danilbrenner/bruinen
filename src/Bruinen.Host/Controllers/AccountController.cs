@@ -37,6 +37,7 @@ public class AccountController(
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
     {
         var login = User.GetLogin();
