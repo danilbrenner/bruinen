@@ -66,10 +66,20 @@ public class AuthController(
                 : RedirectToAction("Index", "Home");
     }
 
+    [HttpGet]
+    [Authorize]
+    public IActionResult Logout()
+    {
+        logger.LogInformation("Logout page requested by user: {Username}", 
+            HttpContext.User.Identity?.Name ?? "Anonymous");
+        return View();
+    }
+
     [HttpPost]
     [Authorize]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Logout()
+    [ActionName("Logout")]
+    public async Task<IActionResult> LogoutConfirmed()
     {
         var username = HttpContext.User.Identity?.Name ?? "Unknown";
         logger.LogInformation("User {Username} logging out", username);

@@ -1,0 +1,37 @@
+@{
+    ViewData["Title"] = "Logout";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4 text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-sign-out-alt fa-3x text-warning"></i>
+                    </div>
+                    
+                    <h2 class="mb-3">Logout</h2>
+                    <p class="text-muted mb-4">Are you sure you want to log out?</p>
+                    
+                    <div class="d-grid gap-2">
+                        <form asp-action="Logout" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-right-from-bracket me-2"></i>Yes, Logout
+                            </button>
+                        </form>
+                    </div>
+                    
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="mt-4 pt-3 border-top">
+                            <small class="text-muted">Logged in as <strong>@User.Identity.Name</strong></small>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
