@@ -13,6 +13,7 @@ public class AccountService(IUserRepository userRepository)
         if (!Argon2.Verify(user.PasswordHash, currentPassword))
             return false;
         user.ChangePassword(Argon2.Hash(newPassword), DateTimeOffset.UtcNow);
+        await userRepository.UpdateAsync(user);
         return true;
     }
 }
