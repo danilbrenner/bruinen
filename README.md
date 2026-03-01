@@ -1,5 +1,9 @@
 # Bruinen
 
+Bruinen is a small web application built with ASP.NET Core for learning and experimenting with user authentication and account management.
+
+The project uses PostgreSQL for storage and runs in a Docker-based development environment. It includes login, and account management features.
+
 ## Getting Started
 
 ### Prerequisites
