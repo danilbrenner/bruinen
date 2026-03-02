@@ -22,6 +22,10 @@ try
     // Add services to the container.
     builder.Services.AddControllersWithViews();
 
+    // Configure HeaderAllowList options
+    builder.Services.Configure<HeaderAllowListOptions>(
+        builder.Configuration.GetSection("HeaderAllowList"));
+
     builder
         .Services
         .AddApplicationServices(builder.Configuration)
@@ -46,6 +50,7 @@ try
     var app = builder.Build();
 
     app
+        .UseHeaderAllowList()
         .UseRequestId()
         .UseData()
         .UseSerilogRequestLogging();
