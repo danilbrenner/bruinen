@@ -14,6 +14,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\src\Bruinen.Domain\Bruinen.Domain.csproj" />
         <ProjectReference Include="..\..\src\Bruinen.Application\Bruinen.Application.csproj" />
+        <ProjectReference Include="..\..\src\Bruinen.Host\Bruinen.Host.csproj" />
     </ItemGroup>
 
 
