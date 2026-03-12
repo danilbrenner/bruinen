@@ -18,7 +18,7 @@ public class AccountController(
         var login = User.GetLogin();
         logger.LogInformation("Account Index page requested by user: {Username}", login);
         
-        var user = await userRepository.GetByLoginAsync(login);
+        var user = await userRepository.GetByLogin(login);
         if (user == null)
         {
             logger.LogWarning("User {Username} not found in repository", login);

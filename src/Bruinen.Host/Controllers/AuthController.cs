@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using Bruinen.Application.Services;
+using Bruinen.Host.Middleware;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,7 @@ public class AuthController(
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [RequestRateLimit(MaxRequests = 5, LockoutDurationSec = 30)]
     public async Task<IActionResult> Login(LoginViewModel model, string? rd = null)
     {
         logger.LogInformation("POST Login attempt for username: {Username}, redirect: {RedirectUrl}", 

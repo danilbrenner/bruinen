@@ -7,13 +7,13 @@ public class AccountService(IUserRepository userRepository)
 {
     public async Task<bool> ChangePassword(string login, string currentPassword, string newPassword)
     {
-        var user = await userRepository.GetByLoginAsync(login);
+        var user = await userRepository.GetByLogin(login);
         if(user == null)
             throw new InvalidOperationException("User not found.");
         if (!Argon2.Verify(user.PasswordHash, currentPassword))
             return false;
         user.ChangePassword(Argon2.Hash(newPassword), DateTimeOffset.UtcNow);
-        await userRepository.UpdateAsync(user);
+        await userRepository.Update(user);
         return true;
     }
 }

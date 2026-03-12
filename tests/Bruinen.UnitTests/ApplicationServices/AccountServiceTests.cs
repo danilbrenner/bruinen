@@ -17,7 +17,7 @@ public class AccountServiceTests
         var passwordHash = Argon2.Hash(currentPassword);
         var user = new User(login, passwordHash, DateTimeOffset.UtcNow);
 
-        _userRepositoryMock.Setup(x => x.GetByLoginAsync(login))
+        _userRepositoryMock.Setup(x => x.GetByLogin(login))
             .ReturnsAsync(user);
 
         var service = new AccountService(_userRepositoryMock.Object);
@@ -38,7 +38,7 @@ public class AccountServiceTests
         var originalPasswordChangedAt = DateTimeOffset.UtcNow.AddDays(-10);
         var user = new User(login, passwordHash, originalPasswordChangedAt);
 
-        _userRepositoryMock.Setup(x => x.GetByLoginAsync(login))
+        _userRepositoryMock.Setup(x => x.GetByLogin(login))
             .ReturnsAsync(user);
 
         var service = new AccountService(_userRepositoryMock.Object);
@@ -62,7 +62,7 @@ public class AccountServiceTests
         var passwordHash = Argon2.Hash(currentPassword);
         var user = new User(login, passwordHash, DateTimeOffset.UtcNow);
 
-        _userRepositoryMock.Setup(x => x.GetByLoginAsync(login))
+        _userRepositoryMock.Setup(x => x.GetByLogin(login))
             .ReturnsAsync(user);
 
         var service = new AccountService(_userRepositoryMock.Object);
@@ -82,7 +82,7 @@ public class AccountServiceTests
         var passwordHash = Argon2.Hash(currentPassword);
         var user = new User(login, passwordHash, DateTimeOffset.UtcNow);
 
-        _userRepositoryMock.Setup(x => x.GetByLoginAsync(login))
+        _userRepositoryMock.Setup(x => x.GetByLogin(login))
             .ReturnsAsync(user);
 
         var service = new AccountService(_userRepositoryMock.Object);
@@ -102,7 +102,7 @@ public class AccountServiceTests
     public async Task ChangePassword_WithNonExistentUser_ThrowsInvalidOperationException(string login, string currentPassword, string newPassword)
     {
         // Arrange
-        _userRepositoryMock.Setup(x => x.GetByLoginAsync(login))
+        _userRepositoryMock.Setup(x => x.GetByLogin(login))
             .ReturnsAsync((User?)null);
 
         var service = new AccountService(_userRepositoryMock.Object);
@@ -122,7 +122,7 @@ public class AccountServiceTests
         var passwordHash = Argon2.Hash(currentPassword);
         var user = new User(login, passwordHash, DateTimeOffset.UtcNow);
 
-        _userRepositoryMock.Setup(x => x.GetByLoginAsync(login))
+        _userRepositoryMock.Setup(x => x.GetByLogin(login))
             .ReturnsAsync(user);
 
         var service = new AccountService(_userRepositoryMock.Object);
@@ -131,7 +131,7 @@ public class AccountServiceTests
         await service.ChangePassword(login, currentPassword, newPassword);
 
         // Assert
-        _userRepositoryMock.Verify(x => x.GetByLoginAsync(login), Times.Once);
+        _userRepositoryMock.Verify(x => x.GetByLogin(login), Times.Once);
     }
 
     [Theory]
@@ -142,7 +142,7 @@ public class AccountServiceTests
         var passwordHash = Argon2.Hash(password);
         var user = new User(login, passwordHash, DateTimeOffset.UtcNow);
 
-        _userRepositoryMock.Setup(x => x.GetByLoginAsync(login))
+        _userRepositoryMock.Setup(x => x.GetByLogin(login))
             .ReturnsAsync(user);
 
         var service = new AccountService(_userRepositoryMock.Object);
@@ -163,7 +163,7 @@ public class AccountServiceTests
         var oldTimestamp = DateTimeOffset.UtcNow.AddDays(-30);
         var user = new User(login, passwordHash, oldTimestamp);
 
-        _userRepositoryMock.Setup(x => x.GetByLoginAsync(login))
+        _userRepositoryMock.Setup(x => x.GetByLogin(login))
             .ReturnsAsync(user);
 
         var service = new AccountService(_userRepositoryMock.Object);

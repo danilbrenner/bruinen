@@ -18,7 +18,7 @@ public class LoginServiceTests
         var passwordHash = Argon2.Hash(password);
         var user = new User(login, passwordHash, DateTimeOffset.UtcNow);
 
-        _userRepositoryMock.Setup(x => x.GetByLoginAsync(login))
+        _userRepositoryMock.Setup(x => x.GetByLogin(login))
             .ReturnsAsync(user);
         
         var service = new LoginService(_userRepositoryMock.Object);
@@ -38,7 +38,7 @@ public class LoginServiceTests
         var passwordHash = Argon2.Hash(password);
         var user = new User(login, passwordHash, DateTimeOffset.UtcNow);
         
-        _userRepositoryMock.Setup(x => x.GetByLoginAsync(login))
+        _userRepositoryMock.Setup(x => x.GetByLogin(login))
             .ReturnsAsync(user);
         
         var service = new LoginService(_userRepositoryMock.Object);
@@ -55,7 +55,7 @@ public class LoginServiceTests
     public async Task LoginAsync_WithNonExistentUser_ReturnsFalse(string login, string password)
     {
         // Arrange
-        _userRepositoryMock.Setup(x => x.GetByLoginAsync(login))
+        _userRepositoryMock.Setup(x => x.GetByLogin(login))
             .ReturnsAsync((User?)null);
         
         var service = new LoginService(_userRepositoryMock.Object);
