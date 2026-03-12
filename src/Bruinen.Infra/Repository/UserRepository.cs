@@ -6,14 +6,14 @@ namespace Bruinen.Data.Repository;
 
 public class UserRepository(IDbContextFactory<BruinenContext> contextFactory) : IUserRepository
 {
-    public async Task<User?> GetByLoginAsync(string login)
+    public async Task<User?> GetByLogin(string login)
     {
         await using var context = await contextFactory.CreateDbContextAsync();
         var userEntity = await context.Users.FirstOrDefaultAsync(u => u.Login == login);
         return userEntity?.ToDomain();
     }
 
-    public async Task UpdateAsync(User user)
+    public async Task Update(User user)
     {
         await using var context = await contextFactory.CreateDbContextAsync();
         var userEntity = await context.Users.FirstOrDefaultAsync(u => u.Login == user.Login);

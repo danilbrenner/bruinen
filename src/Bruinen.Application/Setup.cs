@@ -9,5 +9,6 @@ public static class Setup
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         => services
             .AddScoped<LoginService>()
-            .AddScoped<AccountService>();
+            .AddScoped<AccountService>()
+            .AddScoped<RateLimitingService>();
 }

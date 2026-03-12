@@ -21,7 +21,9 @@ public static class Setup
                 .UseSnakeCaseNamingConvention();
         });
 
-        return services.AddScoped<IUserRepository, UserRepository>();
+        return services
+            .AddScoped<IUserRepository, UserRepository>()
+            .AddScoped<IRequestCounterRepository, RequestCounterRepository>();
     }
 
     public static IApplicationBuilder UseData(this IApplicationBuilder app)

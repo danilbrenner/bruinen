@@ -6,6 +6,7 @@ namespace Bruinen.Data;
 public class BruinenContext(DbContextOptions<BruinenContext> options) : DbContext(options)
 {
     public DbSet<User> Users { get; set; }
+    public DbSet<RequestCounter> RequestCounters { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
