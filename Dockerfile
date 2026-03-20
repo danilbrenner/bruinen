@@ -23,6 +23,8 @@ WORKDIR /app
 
 COPY --from=build /app/publish .
 
+ENV ASPNETCORE_ENVIRONMENT=Production
+
 EXPOSE 8080
 ENTRYPOINT ["dotnet", "Bruinen.Host.dll"]
 
