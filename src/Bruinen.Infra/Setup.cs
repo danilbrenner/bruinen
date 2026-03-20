@@ -29,10 +29,6 @@ public static class Setup
     public static IApplicationBuilder UseData(this IApplicationBuilder app)
     {
         using var scope = app.ApplicationServices.CreateScope();
-        var environment = scope.ServiceProvider.GetRequiredService<IHostEnvironment>();
-
-        if (!environment.IsDevelopment()) return app;
-
         var dbContextFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<BruinenContext>>();
         using var context = dbContextFactory.CreateDbContext();
         context.Database.Migrate();
