@@ -31,6 +31,6 @@ public class LoginTests : IAsyncLifetime
 
         await page.WaitForURLAsync(url => !url.Contains("/Auth/Login"));
 
-        Assert.Equal("Home Page", await page.TitleAsync());
+        Assert.Equal("Home Page - Bruinen", await page.TitleAsync());
     }
 }

@@ -17,8 +17,10 @@ help:
 	@echo "  make build           - Build the .NET solution"
 	@echo "  make run             - Run the Host application"
 	@echo ""
+	@echo "Tool commands:"
+	@echo "  make tool-restore    - Restore .NET tools and install Playwright browsers"
+	@echo ""
 	@echo "Database migration commands:"
-	@echo "  make tool-restore    - Install EF Core CLI tools"
 	@echo "  make migrate         - Apply migrations to database"
 	@echo "  make migration-add <name> - Create new migration (e.g., make migration-add AddUserEmail)"
 	@echo ""
@@ -56,6 +58,7 @@ run:
 
 tool-restore:
 	dotnet tool restore
+	dotnet tool run playwright install
 
 migrate:
 	dotnet ef database update \
