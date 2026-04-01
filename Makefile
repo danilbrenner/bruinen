@@ -1,4 +1,4 @@
-.PHONY: help up down restart logs clean build restore run migrate migration-add tool-restore libman-restore libman-clean libman-update libman-install
+.PHONY: help up down restart logs clean build restore run migrate migration-add tool-restore libman-restore libman-clean libman-update libman-install e2e
 
 .DEFAULT_GOAL := help
 
@@ -21,6 +21,9 @@ help:
 	@echo "  make tool-restore    - Install EF Core CLI tools"
 	@echo "  make migrate         - Apply migrations to database"
 	@echo "  make migration-add <name> - Create new migration (e.g., make migration-add AddUserEmail)"
+	@echo ""
+	@echo "E2E test commands:"
+	@echo "  make e2e             - Run E2E tests (requires app running locally or E2E_BASE_URL set)"
 	@echo ""
 	@echo "Client-side library commands:"
 	@echo "  make libman-restore  - Restore client-side libraries (Bootstrap, Font Awesome)"
@@ -82,6 +85,9 @@ libman-update:
 		exit 1; \
 	fi
 	cd src/Bruinen.Host && dotnet libman update $(filter-out $@,$(MAKECMDGOALS))
+
+e2e:
+	dotnet test tests/Bruinen.E2ETests/Bruinen.E2ETests.csproj
 
 %:
 	@:
